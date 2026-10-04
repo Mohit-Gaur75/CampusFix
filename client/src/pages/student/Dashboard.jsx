@@ -9,7 +9,7 @@ import { Skeleton } from '../../components/ui/Skeleton';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { ErrorState } from '../../components/ui/ErrorState';
 import { formatRelativeTime } from '../../utils/constants';
-import { AlertCircle, Clock, CheckCircle, Plus } from 'lucide-react';
+import { AlertCircle, Clock, CheckCircle, Plus, FileText } from 'lucide-react';
 
 export const StudentDashboard = () => {
   const [issues, setIssues] = useState([]);

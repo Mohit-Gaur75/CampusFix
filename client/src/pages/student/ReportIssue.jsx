@@ -89,7 +89,7 @@ export const ReportIssue = () => {
     try {
       setIsSubmitting(true);
       const formData = new FormData();
-      formData.append('location', locationId);
+      formData.append('locationId', locationId);
       formData.append('category', category);
       formData.append('description', description);
       if (targetLink) formData.append('linkToIssueId', targetLink);
@@ -196,7 +196,8 @@ export const ReportIssue = () => {
                 required
               >
                 <option value="">Select Room/Area...</option>
-                {rooms.map(r => <option key={r._id} value={r._id}>{r.label}</option>)}
+                
+                {rooms.map(r => <option key={r._id} value={r._id}>{r.area || r.label}</option>)}
               </select>
             </div>
           </div>
