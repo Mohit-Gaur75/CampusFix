@@ -35,3 +35,8 @@ export const provideFeedback = asyncHandler(async (req, res) => {
   const result = await issueService.provideFeedback(req.user, req.params.id, req.body.action);
   res.status(200).json({ success: true, data: result });
 });
+
+export const getPublicIssues = asyncHandler(async (req, res) => {
+  const result = await issueService.getPublicIssues(req.query);
+  res.status(200).json({ success: true, data: result });
+});

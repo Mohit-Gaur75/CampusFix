@@ -34,6 +34,8 @@ router.post('/',
 
 router.get('/mine', authenticate, requireRole(ROLES.STUDENT), issueController.getMyIssues);
 
+router.get('/public', issueController.getPublicIssues);
+
 router.get('/:id', authenticate, issueController.getIssueById);
 
 router.post('/:id/feedback', authenticate, requireRole(ROLES.STUDENT), issueController.provideFeedback);

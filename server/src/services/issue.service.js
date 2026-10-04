@@ -86,6 +86,18 @@ export const createIssue = async (user, issueData, photoUrls) => {
   const location = await Location.findById(issueData.locationId);
   if (!location) throw new ApiError(400, 'Invalid location');
 
+  // Spam prevention: block same user from reporting same category/location within 15 mins
+  const recentReport = await Report.findOne({
+    reporter: user._id,
+    category: issueData.category,
+    location: location._id,
+    createdAt: { $gte: new Date(Date.now() - 15 * 60 * 1000) }
+  });
+
+  if (recentReport) {
+    throw new ApiError(429, 'You have recently reported an issue in this category and location. Please wait before submitting again.');
+  }
+
   // Handle linking
   if (issueData.linkToIssueId) {
     const targetIssue = await Issue.findById(issueData.linkToIssueId).populate('location');
@@ -350,4 +362,23 @@ export const provideFeedback = async (user, issueId, action) => {
 
   await issue.save();
   return issue;
+};
+
+export const getPublicIssues = async (query) => {
+  const { page = 1, limit = 50 } = query;
+  
+  const skip = (page - 1) * limit;
+
+  const [items, total] = await Promise.all([
+    Issue.find({})
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(Number(limit))
+      .populate('location', 'label building area')
+      .populate('department', 'name')
+      .lean(),
+    Issue.countDocuments({})
+  ]);
+
+  return { items, total, page: Number(page) };
 };

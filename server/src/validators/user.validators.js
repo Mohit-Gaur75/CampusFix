@@ -7,3 +7,9 @@ export const updateProfileSchema = z.object({
     hostel: z.string().optional()
   }).strict()
 });
+
+export const updateRoleSchema = z.object({
+  body: z.object({
+    role: z.enum(['STUDENT', 'AUTHORITY', 'ADMIN'])
+  }).strict()
+});

@@ -11,7 +11,7 @@ export const keywordSimilarity = (tokensA, tokensB) => {
       intersection++;
     }
   }
-  
+
   const union = tokensA.size + tokensB.size - intersection;
   return union === 0 ? 0 : intersection / union;
 };
