@@ -368,16 +368,17 @@ export const getPublicIssues = async (query) => {
   const { page = 1, limit = 50 } = query;
   
   const skip = (page - 1) * limit;
+  const filter = { status: { $ne: 'CLOSED' } };
 
   const [items, total] = await Promise.all([
-    Issue.find({})
+    Issue.find(filter)
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(Number(limit))
       .populate('location', 'label building area')
       .populate('department', 'name')
       .lean(),
-    Issue.countDocuments({})
+    Issue.countDocuments(filter)
   ]);
 
   return { items, total, page: Number(page) };
