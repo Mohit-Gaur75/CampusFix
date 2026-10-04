@@ -69,7 +69,6 @@ const issueSchema = new mongoose.Schema({
   timestamps: true // adds createdAt, updatedAt
 });
 
-issueSchema.index({ code: 1 }, { unique: true });
 issueSchema.index({ status: 1, 'priority.score': -1 }); // priority queue
 issueSchema.index({ location: 1, category: 1, status: 1 }); // duplicate lookup
 issueSchema.index({ createdAt: -1 });

@@ -43,7 +43,7 @@ export const errorHandler = (err, req, res, next) => {
     error: {
       code,
       message,
-      details: details.length > 0 ? details : undefined,
+      details: details && details.length > 0 ? details : undefined,
     }
   };
 

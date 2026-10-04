@@ -68,6 +68,7 @@ const seedDatabase = async () => {
 
     console.log('Seeding locations...');
     for (const loc of locationsData) {
+      loc.label = `${loc.building} — ${loc.floor} — ${loc.area}`;
       await Location.findOneAndUpdate({ building: loc.building, floor: loc.floor, area: loc.area }, { $set: loc }, { upsert: true, new: true, runValidators: true });
     }
 
@@ -114,7 +115,9 @@ const seedDatabase = async () => {
           const report = new Report({
             reporter: student._id,
             category: iData.cat,
+            location: loc._id,
             description: iData.desc,
+            isPrimary: j === 0,
             createdAt: repDate,
             updatedAt: repDate
           });
