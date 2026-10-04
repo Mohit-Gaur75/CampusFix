@@ -21,10 +21,19 @@ export const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    
+    if (!/^[a-zA-Z]{2}\d{2}[a-zA-Z]\d{3}$/.test(rollNo)) {
+      return setError('Roll No must be in format like cs24b016');
+    }
+
+    if (email.toLowerCase() !== `${rollNo.toLowerCase()}@gmail.com`) {
+      return setError(`Email must be in the format ${rollNo.toLowerCase()}@gmail.com`);
+    }
+
     setIsLoading(true);
 
     try {
-      const res = await registerApi({ name, email, password, rollNo: rollNo || undefined });
+      const res = await registerApi({ name, email, password, rollNo });
       login(res.data.user, res.data.token);
       navigate('/student/dashboard');
     } catch (err) {
@@ -96,10 +105,11 @@ export const Register = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700">Roll No / Student ID (Optional)</label>
+              <label className="block text-sm font-medium text-slate-700">Roll No (e.g. cs24b016)</label>
               <div className="mt-1">
                 <input
                   type="text"
+                  required
                   value={rollNo}
                   onChange={(e) => setRollNo(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

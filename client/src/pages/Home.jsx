@@ -69,7 +69,7 @@ export const Home = () => {
             See what's happening around campus, track maintenance progress in real-time, and report issues instantly.
           </p>
           <div className="flex justify-center gap-4">
-            <Button size="lg" className="bg-white text-indigo-900 hover:bg-slate-100 border-none" onClick={() => navigate('/student/report')}>
+            <Button variant="secondary" className="bg-white text-indigo-900 hover:bg-slate-100 px-8 py-3 text-lg" onClick={() => navigate('/student/report')}>
               Report a New Issue
             </Button>
           </div>
