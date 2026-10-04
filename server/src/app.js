@@ -2,15 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import { env } from './config/env.js';
+import { errorHandler } from './middleware/errorHandler.js';
 
 const app = express();
 
 app.use(helmet());
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: env.CLIENT_URL,
   credentials: true
 }));
 app.use(express.json());
@@ -24,17 +23,7 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Central error handler stub
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json({
-    success: false,
-    error: {
-      code: err.code || 'SERVER_ERROR',
-      message: err.message || 'An unexpected error occurred',
-      details: err.details || []
-    }
-  });
-});
+// Central error handler
+app.use(errorHandler);
 
 export default app;
