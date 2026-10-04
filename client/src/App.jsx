@@ -4,6 +4,7 @@ import { useAuth } from './context/AuthContext';
 import { AppLayout } from './components/layout/AppLayout';
 import { ProtectedRoute } from './components/layout/ProtectedRoute';
 import { Login } from './pages/Login';
+import { Register } from './pages/Register';
 import { NotFound } from './pages/NotFound';
 import { StudentDashboard } from './pages/student/Dashboard';
 import { ReportIssue } from './pages/student/ReportIssue';
@@ -13,23 +14,17 @@ import { AuthorityDashboard } from './pages/authority/Dashboard';
 import { AuthorityIssues } from './pages/authority/Issues';
 import { AuthorityIssueDetail } from './pages/authority/IssueDetail';
 import { Analytics } from './pages/authority/Analytics';
+import { Users } from './pages/authority/Users';
 import { Forbidden } from './pages/Forbidden';
 
-// Helper for root redirect
-const RootRedirect = () => {
-  const { user, loading } = useAuth();
-  
-  if (loading) return null;
-  if (!user) return <Navigate to="/login" replace />;
-  
-  return <Navigate to={user.role === 'STUDENT' ? '/student/dashboard' : '/authority/dashboard'} replace />;
-};
+import { Home } from './pages/Home';
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<RootRedirect />} />
+      <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
       {/* Student Routes */}
       <Route element={<ProtectedRoute allowedRoles={['STUDENT']} />}>
@@ -48,6 +43,7 @@ function App() {
           <Route path="/authority/issues" element={<AuthorityIssues />} />
           <Route path="/authority/issues/:id" element={<AuthorityIssueDetail />} />
           <Route path="/authority/analytics" element={<Analytics />} />
+          <Route path="/authority/users" element={<Users />} />
         </Route>
       </Route>
 

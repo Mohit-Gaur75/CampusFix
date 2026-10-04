@@ -5,6 +5,11 @@ export const getMyIssues = async (params) => {
   return data;
 };
 
+export const getPublicIssues = async (params) => {
+  const { data } = await api.get('/issues/public', { params });
+  return data;
+};
+
 export const getIssueById = async (id) => {
   const { data } = await api.get(`/issues/${id}`);
   return data;

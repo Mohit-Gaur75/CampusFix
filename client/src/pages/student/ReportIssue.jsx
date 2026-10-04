@@ -79,6 +79,8 @@ export const ReportIssue = () => {
 
   const handleSubmit = async (e, forceLink = null) => {
     e?.preventDefault();
+    if (isSubmitting) return;
+    
     if (!locationId || !category || description.length < 10) {
       addToast({ type: 'error', message: 'Please complete all required fields.' });
       return;
@@ -341,8 +343,8 @@ export const ReportIssue = () => {
         </section>
 
         <div className="flex justify-end pt-4">
-          <Button type="submit" disabled={isSubmitting || duplicates.length > 0} className="px-8 text-lg py-3">
-            {isSubmitting ? 'Submitting...' : 'Submit Issue'}
+          <Button type="submit" disabled={isSubmitting} className="px-8 text-lg py-3">
+            {isSubmitting ? 'Submitting...' : (duplicates.length > 0 ? 'Ignore and Submit New' : 'Submit Issue')}
           </Button>
         </div>
       </form>

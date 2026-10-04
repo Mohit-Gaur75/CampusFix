@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate, Navigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Button } from '../components/ui/Button';
 
@@ -65,7 +65,12 @@ export const Login = () => {
         <div className="max-w-md w-full mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold text-slate-900 tracking-tight">Welcome back</h2>
-            <p className="text-slate-500 mt-2">Sign in to your account to continue</p>
+            <p className="text-slate-500 mt-2">
+              Sign in to your account or{' '}
+              <Link to="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
+                create a new one
+              </Link>
+            </p>
           </div>
 
           {error && (

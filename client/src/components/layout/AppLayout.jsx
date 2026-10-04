@@ -3,7 +3,7 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useNotifications } from '../../hooks/useNotifications';
 import { formatRelativeTime } from '../../utils/constants';
-import { Home, FileText, Activity, LogOut, Search, Bell, Check } from 'lucide-react';
+import { Home, FileText, Activity, LogOut, Search, Bell, Check, Users } from 'lucide-react';
 
 const NotificationBell = () => {
   const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
@@ -105,6 +105,7 @@ export const AppLayout = () => {
     { name: 'Dashboard', path: '/authority/dashboard', icon: Home },
     { name: 'Issues', path: '/authority/issues', icon: FileText },
     { name: 'Analytics', path: '/authority/analytics', icon: Activity },
+    ...(user?.role === 'ADMIN' ? [{ name: 'Users', path: '/authority/users', icon: Users }] : [])
   ] : [
     { name: 'Dashboard', path: '/student/dashboard', icon: Home },
     { name: 'Report Issue', path: '/student/report', icon: FileText },
