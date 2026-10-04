@@ -7,7 +7,9 @@
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "seed": "node src/seed/seed.js"
+    "seed": "node src/seed/seed.js",
+    "seed:reset": "node src/seed/seed.js --reset",
+    "test:ci": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --ci --coverage"
   },
   "keywords": [],
   "author": "",

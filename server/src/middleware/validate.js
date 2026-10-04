@@ -6,8 +6,8 @@ export const validate = (schema) => (req, res, next) => {
       params: req.params
     });
     req.body = parsed.body;
-    req.query = parsed.query;
-    req.params = parsed.params;
+    // req.query = parsed.query;
+    // req.params = parsed.params;
     next();
   } catch (err) {
     next(err);

@@ -13,6 +13,7 @@ import metaRoutes from './routes/meta.routes.js';
 import issueRoutes from './routes/issue.routes.js';
 import authorityRoutes from './routes/authority.routes.js';
 import notificationRoutes from './routes/notification.routes.js';
+import analyticsRoutes from './routes/analytics.routes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -47,6 +48,7 @@ app.use('/api/meta', metaRoutes);
 app.use('/api/issues', issueRoutes);
 app.use('/api/authority', authorityRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 
 // Central error handler
