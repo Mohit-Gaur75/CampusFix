@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { jest } from '@jest/globals';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { User } from '../src/models/User.js';
 import { Department } from '../src/models/Department.js';
@@ -7,6 +8,8 @@ import { Report } from '../src/models/Report.js';
 import { Issue } from '../src/models/Issue.js';
 
 let mongoServer;
+jest.setTimeout(300000); // Allow 5 minutes for first-time MongoDB binary download
+
 
 beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
