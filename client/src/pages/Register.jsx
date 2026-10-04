@@ -4,16 +4,17 @@ import { useAuth } from '../context/AuthContext';
 import { register as registerApi } from '../api/auth';
 import { Button } from '../components/ui/Button';
 import { useToast } from '../components/ui/Toast';
-import { Building2, AlertCircle } from 'lucide-react';
+import { Building2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 
 export const Register = () => {
   const navigate = useNavigate();
-  const { login } = useAuth(); // We'll just reuse login context function since register returns { token, user }
+  const { login } = useAuth();
   const { addToast } = useToast();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [rollNo, setRollNo] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -86,6 +87,7 @@ export const Register = () => {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  placeholder="John Doe"
                   className="appearance-none block w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
               </div>
@@ -99,19 +101,21 @@ export const Register = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  placeholder="rollno@gmail.com"
                   className="appearance-none block w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700">Roll No (e.g. cs24b016)</label>
+              <label className="block text-sm font-medium text-slate-700">Roll No</label>
               <div className="mt-1">
                 <input
                   type="text"
                   required
                   value={rollNo}
                   onChange={(e) => setRollNo(e.target.value)}
+                  placeholder="cs24b016"
                   className="appearance-none block w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
               </div>
@@ -119,14 +123,26 @@ export const Register = () => {
 
             <div>
               <label className="block text-sm font-medium text-slate-700">Password</label>
-              <div className="mt-1">
+              <div className="mt-1 relative">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="••••••••"
+                  className="appearance-none block w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm pr-10"
                 />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-500 focus:outline-none"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5" aria-hidden="true" />
+                  ) : (
+                    <Eye className="h-5 w-5" aria-hidden="true" />
+                  )}
+                </button>
               </div>
             </div>
 
